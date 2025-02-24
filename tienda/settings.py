@@ -156,6 +156,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "core" / "static",
 ]
 
+# Parámetros para poder subir archivos a la carpeta "media"
+
 
 # Parámetros para poder subir archivos a la carpeta "media"
 
