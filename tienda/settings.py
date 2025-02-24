@@ -150,6 +150,13 @@ TIME_ZONE = 'America/Santiago'
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "core" / "static",
+]
+
+
 # Parámetros para poder subir archivos a la carpeta "media"
 
 MEDIA_ROOT = path.join(BASE_DIR, 'media')
