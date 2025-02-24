@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s&f92x^bztt53afi6l)oj-!1%aa6v9=ki@9p%lo!bu_wkx16c('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
@@ -148,21 +148,12 @@ TIME_ZONE = 'America/Santiago'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-import os
-
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Carpeta donde Django buscará archivos estáticos en desarrollo
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Asegúrate de que esta carpeta existe
+    BASE_DIR / 'core' / 'static'
 ]
-
-# Carpeta donde Django guardará los archivos estáticos en producción
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 # Parámetros para poder subir archivos a la carpeta "media"
 
 
