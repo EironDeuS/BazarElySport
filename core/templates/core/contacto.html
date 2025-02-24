@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+    <!-- Título principal -->
+    <div class="header">
+        <h1>Bazar ElySport</h1>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="content-wrapper">
+        <!-- Sección "Sobre Nosotros" -->
+        <section class="nosotros">
+            <h1>Sobre Nosotros</h1>
+            <p>En Bazar ElySport, ubicado en la comuna de Marchigüe, ofrecemos una amplia variedad de productos, desde artículos de hogar hasta accesorios deportivos. Nuestro objetivo es brindar un excelente servicio al cliente y garantizar que cada visita sea una experiencia agradable.</p>
+        </section>
+
+        <!-- Sección "Contacto" -->
+        <section class="contact-section">
+            <h2>Nuestro Instagram</h2>
+            <p>Para más información, síguenos en nuestras redes sociales.</p>
+            <!-- Imagen clicable -->
+            <a href="https://www.instagram.com/bazar.elysport/" target="_blank" aria-label="Visitar Instagram">
+                <img src="{% static 'core/img/logo.png' %}" alt="Logo Bazar ElySport" width="200">
+            </a>
+            <!-- Botones de contacto -->
+            <div class="mt-3">
+                <a href="https://www.instagram.com/bazar.elysport/" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-instagram"></i> Visitar Instagram
+                </a>
+                <a href="https://wa.me/56965065031?text=Hola%20me%20gustaría%20saber%20más%20sobre%20sus%20productos." target="_blank" class="btn btn-success">
+                    <i class="fab fa-whatsapp"></i> Enviar mensaje por WhatsApp
+                </a>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+
+

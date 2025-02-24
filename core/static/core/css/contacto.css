@@ -1,0 +1,102 @@
+body {
+    background-color: #ffd1dc; /* Rosa pastel */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center; /* Centra todo el contenido del body por defecto */
+}
+h1{
+    text-align: center;
+    font-family: 'Pacifico',cursive;
+    padding-top: 10px;
+}
+
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap; /* Adaptación para pantallas pequeñas */
+    justify-content: space-evenly; /* Espaciado uniforme */
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px; /* Espaciado entre secciones */
+}
+
+/* Estilo para las secciones 'nosotros' y 'contacto' */
+.nosotros, .contact-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 45%; /* Ocupa hasta el 45% del ancho en pantallas grandes */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1 1 300px; /* Mínimo de 300px */
+}
+
+.nosotros h1, .contact-section h2 {
+    font-family: 'Pacifico', cursive;
+    margin-bottom: 15px;
+}
+
+.nosotros p, .contact-section p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Media Query para pantallas pequeñas (máximo 768px) */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem; /* Reducir tamaño de la marca de la navbar en pantallas pequeñas */
+    }
+
+    .content-wrapper {
+        padding: 10px; /* Ajustar el padding para pantallas más pequeñas */
+    }
+
+    .nosotros, .contact-section {
+        max-width: 100%; /* Hacer que las secciones ocupen el 100% del ancho */
+        margin-bottom: 15px; /* Añadir separación entre las secciones */
+    }
+
+    .nosotros h1, .contact-section h2 {
+        font-size: 1.5rem; /* Reducir el tamaño del título */
+    }
+
+    .nosotros p, .contact-section p {
+        font-size: 14px; /* Reducir el tamaño de los párrafos */
+    }
+
+    .contact-section img {
+        max-width: 80%; /* Hacer que la imagen se ajuste en pantallas pequeñas */
+    }
+
+    .contact-section .btn {
+        width: 100%; /* Hacer que los botones ocupen todo el ancho en móviles */
+        margin-bottom: 10px; /* Añadir separación entre los botones */
+    }
+}
+
+/* Media Query para pantallas muy pequeñas (máximo 480px) */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.5rem; /* Reducir el tamaño del título principal */
+    }
+
+    .nosotros, .contact-section {
+        padding: 15px; /* Reducir el padding */
+    }
+
+    .nosotros h1, .contact-section h2 {
+        font-size: 1.2rem; /* Reducir tamaño de los títulos */
+    }
+
+    .nosotros p, .contact-section p {
+        font-size: 12px; /* Reducir aún más el tamaño de los párrafos */
+    }
+}
+

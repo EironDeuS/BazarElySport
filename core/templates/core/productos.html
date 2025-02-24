@@ -1,0 +1,113 @@
+
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <h2 class="text-center">Mantenedor de Productos</h2>
+        <section>
+            <form id="form" method="POST" enctype="multipart/form-data" class="d-flex flex-wrap  justify-content-center">
+                <div class="row" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px;">
+                    <!-- Columna del formulario -->
+                    <div class="col-md-6">
+                        <div class="container-fluid bg-white py-4 pt-4" style="border-radius: 30px;">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend>Información del Producto</legend>
+                                <div class="container" style="margin-left: 10px; font-weight: bold;">
+                                    {{ form.categoria|as_bootstrap_field }} <br>
+                                    {{ form.nombre|as_bootstrap_field }}<br>
+                                    {{ form.descripcion|as_bootstrap_field }}<br>
+                                    {{ form.precio|as_bootstrap_field }}<br>
+                                    <fieldset class="border-4 p-2" style="border-radius: 10px; font-weight: bold;">
+                                        {{ form.descuento_subscriptor|as_bootstrap_field }}<br>
+                                        {{ form.descuento_oferta|as_bootstrap_field }}<br>
+                                    </fieldset>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- Columna de la imagen -->
+                    <div class="col-md-6">
+                        <div class="container bg-white py-4" style="border-radius: 30px; padding: 20px;">
+                            <div class="row">
+                                <!-- Área de cuadro de imagen -->
+                                <div class="col-sm-12 text-center">
+                                    {% if form.imagen.value %}
+                                    <img id="cuadro-imagen" class="product-image" src="/media/{{ form.imagen.value }}" class="img-fluid">
+                                    {% else %}
+                                    <img id="cuadro-imagen" class="product-image" src="{% static 'core/img/sin-imagen.png' %}" class="img-fluid">
+                                    {% endif %}
+                                    {{ form.imagen|as_bootstrap_field }}
+                                </div>
+                                <div class="col-sm-12 text-center mt-4">
+                                    <div class="d-grid gap-2 d-md-block">
+                                        <input type="submit" class="btn btn-warning" value="Guardar">
+                                        <a class="btn btn-success" href="{% url 'productos' 'crear' 0 %}">Nuevo</a>
+                                        <div class="container" style="padding-top: 10px;">
+                                            <button class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('id_imagen').click();">Seleccionar imagen</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <div class="container mt-6 mb-6">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="table-responsive">
+                    <table id="tabla-principal" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Categoría</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>%Subs</th>
+                                <th>%Oferta</th>
+                                <th>Imagen</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for producto in productos %}
+                            <tr>
+                                <td>{{ producto.id }}</td>
+                                <td>{{ producto.categoria }}</td>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.descripcion }}</td>
+                                <td>{{ producto.precio|formatear_dinero }}</td>
+                                <td>{{ producto.descuento_subscriptor|formatear_porcentaje }}</td>
+                                <td>{{ producto.descuento_oferta|formatear_porcentaje }}</td>
+                                <td>
+                                    <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="" width="100px">
+                                </td>
+                                <td>
+                                    <a href="{% url 'productos' 'actualizar' producto.id %}" class="btn btn-primary btn-sm">Editar</a>
+                                </td>
+                                <td>
+                                    <form method="POST" action="{% url 'productos' 'eliminar' producto.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

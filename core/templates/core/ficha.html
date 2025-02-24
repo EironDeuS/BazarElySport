@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+
+    <!-- Contenedor principal -->
+    <div class="container mt-5">
+        <!-- Información del producto -->
+        <div class="row">
+            <!-- Imagen del producto -->
+            <div class="col-md-6">
+                <img src="/media/{{producto.imagen}}" alt="Imagen del producto" class="img-fluid product-image">
+            </div>
+        
+            <!-- Detalles del producto -->
+            <div class="col-md-6">
+                <h1>{{producto.nombre}}</h1>
+                <p class="text-muted">{{producto.id}}</p>
+                <p>
+                   {{producto.descripcion}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carrusel de productos relacionados -->
+    <div class="container mt-5">
+        <h2>Productos Relacionados</h2>
+        <div id="relatedProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for producto in productos_relacionados %}
+                {% if forloop.counter0|divisibleby:3 %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="row">
+                {% endif %}
+                        <div class="col-md-4">
+                            <div class="card mx-2">
+                                <img src="/media/{{producto.imagen}}" class="card-img-top" alt="{{producto.nombre}}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{producto.nombre}}</h5>
+                                    <p class="card-text">{{producto.descripcion}}</p>
+                                    <a href="{% url 'ficha' producto.id %}" class="btn btn-primary">Ver más</a>
+                                </div>
+                            </div>
+                        </div>
+                {% if forloop.counter|divisibleby:3 or forloop.last %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#relatedProductsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#relatedProductsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Estilos personalizados para el carrusel -->
+    <style>
+        .carousel-inner {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+        .carousel-item {
+            flex: 0 0 auto;
+            transition: transform 0.5s ease;
+        }
+        .card {
+            width: 100%;
+        }
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #000;
+            border-radius: 50%;
+        }
+    </style>
+
+    <!-- JavaScript para hacer el carrusel infinito -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var carousel = document.querySelector('#relatedProductsCarousel');
+            var items = carousel.querySelectorAll('.carousel-item');
+
+            carousel.addEventListener('slid.bs.carousel', function () {
+                var activeItem = carousel.querySelector('.carousel-item.active');
+                if (activeItem.nextElementSibling === null) {
+                    var firstItem = carousel.querySelector('.carousel-item:first-child');
+                    carousel.querySelector('.carousel-inner').appendChild(firstItem);
+                    firstItem.classList.remove('active');
+                    activeItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
