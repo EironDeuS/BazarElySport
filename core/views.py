@@ -40,24 +40,16 @@ def es_cliente_autenticado_y_activo(user):
     return (not user.is_staff and not user.is_superuser) and user.is_authenticated and user.is_active
 
 def inicio(request):
+    registros = []  # Inicializa registros antes de las condiciones
 
     if request.method == 'POST':
-        # Si la vista fue invocada con un POST es porque el usuario presionó el botón "Buscar" en la página principal.
-        # Por lo anterior, se va a recuperar palabra clave del formulario que es el campo "buscar" (id="buscar"), 
-        # que se encuentra en la página Base.html. El formulario de búsqueda se encuentra bajo el comentario 
-        # "FORMULARIO DE BUSQUEDA" en la página Base.html.
         buscar = request.POST.get('buscar')
-
-        # Se filtrarán todos los productos que contengan la palabra clave en el campo nombre
         registros = Producto.objects.filter(nombre__icontains=buscar).order_by('nombre')
     
-    if request.method == 'GET':
-        # Si la vista fue invocada con un GET, se devolverán todos los productos a la PAGINA
+    elif request.method == 'GET':
         registros = Producto.objects.all().order_by('nombre')
 
-    # Como los productos tienen varios cálculos de descuentos por ofertas y subscripción, estos se realizarán
-    # en una función a parte llamada "obtener_info_producto", mediante la cuál se devolverán las filas de los
-    # productos, pero con campos nuevos donde los cálculos ya han sido realizados.
+    # Cálculo de información del producto
     productos = []
     for registro in registros:
         productos.append(obtener_info_producto(registro.id))
