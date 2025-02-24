@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        var trabajadores = new Array();
+        let persona= "";
+
+        let contador = 0;
+
+
+        while(true){
+            
+            persona=prompt("Introduce el nombre del trabajador");
+            if(persona=="salir"|| persona=="SALIR"|| persona=="Salir"){
+                break;
+            }else{
+            trabajadores.push(persona);
+
+            contador++;
+
+
+        }
+    
+
+    }
+    for(let i =0; i<trabajadores.length; i++){
+            document.write(trabajadores[i]+"<br>");
+        }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

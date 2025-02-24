@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script>
+
+    function suma(a,b){
+        return alert(a+b);
+    }
+
+    function resta(a,b){
+        return alert(a-b);
+    }
+
+    function multiplicacion(a,b){
+        return alert(a*b);
+    }
+
+    function division(a,b){
+        return alert(a/b);
+    }
+
+
+    
+    let opcion= prompt("Que operacion deseas realizar? \n 1. Suma \n 2. Resta \n 3. Multiplicacion \n 4. Division");
+
+    a = prompt("Ingresa el primer numero");
+    b = prompt("Ingresa el segundo numero");
+
+    while(isNaN(a) || isNaN(b)){
+        alert("Ingresa un numero valido");
+        a = prompt("Ingresa el primer numero");
+        b = prompt("Ingresa el segundo numero");
+    }
+
+    if(opcion==1|| opcion=="suma"){
+        if (isNaN(a) || isNaN(b)){
+            alert("Ingresa un numero valido");
+        }else{
+            suma(parseInt(a),parseInt(b));
+        }
+    }else if(opcion==2|| opcion=="resta"){   
+        if (isNaN(a) || isNaN(b)){
+            alert("Ingresa un numero valido");
+        }else{
+            resta(parseInt(a),parseInt(b));
+        }
+    }else if(opcion==3|| opcion=="multiplicacion"){
+        if (isNaN(a) || isNaN(b)){
+            alert("Ingresa un numero valido");
+        }else{
+            suma(parseInt(a),parseInt(b));
+        }
+    }else if(opcion==4|| opcion=="division"){
+                if (isNaN(a) || isNaN(b)){
+            alert("Ingresa un numero valido");
+        }else{
+            suma(parseInt(a),parseInt(b));
+        }
+    }else{
+        alert("Opcion no valida");
+    }
+
+    </script>
+    
+</head>
+<body>
+    
+</body>
+</html>

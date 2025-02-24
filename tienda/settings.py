@@ -148,13 +148,20 @@ TIME_ZONE = 'America/Santiago'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+import os
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 STATIC_URL = '/static/'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
+# Carpeta donde Django buscará archivos estáticos en desarrollo
 STATICFILES_DIRS = [
-    BASE_DIR / "core" / "static",
+    os.path.join(BASE_DIR, 'static'),  # Asegúrate de que esta carpeta existe
 ]
+
+# Carpeta donde Django guardará los archivos estáticos en producción
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Parámetros para poder subir archivos a la carpeta "media"
 

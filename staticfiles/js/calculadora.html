@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      let num1 = parseInt(prompt("Introduce el primer numero"));
+
+      let num2 = parseInt(prompt("Introduce el segundo numero"));
+
+      if (!isNaN(num1) && !isNaN(num2)) {
+        
+
+        let operacion = prompt(
+          "Introduce la operacion que deseas realizar: suma, resta, multiplicacion o division"
+        ).toLowerCase();
+
+        if (
+          operacion != "suma" &&
+          operacion != "resta" &&
+          operacion != "multiplicar " &&
+          operacion != "division"
+        ) {
+          alert("La operacion introducida no es valida");
+        } else if (operacion == "suma") {
+          alert("El resultado de la suma es " + (num1 + num2));
+        } else if (operacion == "resta") {
+          alert("El resultado de la resta es " + (num1 - num2));
+        } else if (operacion == "multiplicar") {
+          alert("El resultado de la multiplicacion es " + num1 * num2);
+        } else if (operacion == "division") {
+          alert("El resultado de la division es " + num1 / num2);
+        } else {
+          alert("La operacion introducida no es valida");
+        }
+      }else{
+        alert('Solo introducir numeros')
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
