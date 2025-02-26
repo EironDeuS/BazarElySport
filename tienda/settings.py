@@ -152,7 +152,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'core' / 'static'
+    BASE_DIR / 'static',  # Asegúrate de que BASE_DIR esté configurado correctamente
 ]
 # Parámetros para poder subir archivos a la carpeta "media"
 
