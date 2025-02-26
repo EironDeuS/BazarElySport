@@ -2,67 +2,214 @@
 {% load static %}
 {% load custom_filters %}
 
-
-
 {% block content %}
 <style>
-  /* Estilos para los controles del carrusel */
-.carousel-control-prev, .carousel-control-next {
-  color: white; /* Puedes cambiar $white por el valor que desees */
-  width: 15%;
-  opacity: .5;
-  transition: opacity .15s ease;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-.carousel-control-prev:hover, .carousel-control-next:hover {
-  opacity: .9;
-}
+  h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #222;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
 
-/* Estilos para los indicadores del carrusel */
-.carousel-indicators li {
-  width: 30px;
-  height: 3px;
-  background-color: rgba(255, 255, 255, 0.5);
-  margin-right: 3px;
-  opacity: .5;
-  transition: opacity .6s ease;
-}
+  .parent {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 30px;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+  }
 
-.carousel-indicators .active {
-  background-color: white; /* Cambiar $white si es necesario */
-  opacity: 1;
-}
+  .categoria-card {
+      position: relative;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      border-radius: 15px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s ease-in-out;
+      cursor: pointer;
+      border: 3px solid transparent;
+  }
 
-/* Estilo adicional si quieres personalizar más el área de los indicadores */
-.carousel-indicators {
-  bottom: 10px;
-}
+  .categoria-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(255, 118, 136, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.7);
+  }
 
+  .categoria-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px 15px 0 0;
+      transition: transform 0.4s ease-in-out;
+  }
+
+  .categoria-card:hover img {
+      transform: scale(1.1);
+  }
+
+  .title {
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background 0.4s ease-in-out;
+  }
+
+  .categoria-card:hover .title {
+      background: rgba(0, 0, 0, 0.9);
+  }
+
+  .no-categorias {
+      text-align: center;
+      font-size: 1.3rem;
+      color: #777;
+      font-weight: 500;
+  }
+
+  .action-button {
+      display: block;
+      width: 200px;
+      margin: 30px auto;
+      padding: 15px 20px;
+      font-size: 1.2rem;
+      text-align: center;
+      color: white;
+      background: #ff758c;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.4s ease-in-out;
+  }
+
+  .action-button:hover {
+      background: #ff7eb3;
+  }
+
+  .card {
+      position: relative;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s ease-in-out;
+      cursor: pointer;
+      border: 3px solid transparent;
+      margin-bottom: 30px;
+  }
+
+  .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.7);
+  }
+
+  .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px 15px 0 0;
+      transition: transform 0.4s ease-in-out;
+  }
+
+  .card:hover img {
+      transform: scale(1.1);
+  }
+
+  .card-body {
+      padding: 15px;
+  }
+
+  .card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+  }
+
+  .card-text {
+      font-size: 1rem;
+      color: #777;
+      margin-bottom: 15px;
+  }
+
+  .btn-primary {
+      background-color: #ff758c;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: white;
+      transition: background 0.4s ease-in-out;
+  }
+
+  .btn-primary:hover {
+      background-color: #ff7eb3;
+  }
+
+  .btn-success {
+      background-color: #1c9c4b;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: white;
+      transition: background 0.4s ease-in-out;
+  }
+
+  .btn-success:hover {
+      background-color: #28a745;
+  }
+
+  @media (max-width: 768px) {
+      .parent {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+      }
+
+      .categoria-card {
+          margin-bottom: 15px;
+      }
+
+      .categoria-card img {
+          height: 150px;
+      }
+  }
 </style>
-<!-- Carousel -->
-<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{% static 'img/papel.avif' %}" srcset="{% static 'img/papel.avif' %} 1200w, {% static 'img/papel-small.avif' %} 600w" sizes="(max-width: 600px) 100vw, 50vw" class="d-block w-100" alt="...">
 
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'img/papel.avif' %}" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'img/papel.avif' %}" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+<!-- Sección de Categorías -->
+
+<div class="parent">
+    {% for categoria in categorias %}
+    <a href="{% url 'productos_por_categoria' categoria.id %}" class="categoria-card">
+        {% if categoria.imagen and categoria.imagen.url %}
+            <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}">
+        {% else %}
+            <img src="{% static 'img/libro.jpg' %}" alt="Imagen por defecto">
+        {% endif %}
+        <div class="title">{{ categoria.nombre }}</div>
+    </a>
+    {% empty %}
+    <p>No hay categorías disponibles.</p>
+    {% endfor %}
 </div>
-
 
 <!-- Catálogo de Productos -->
 {% if productos %}
@@ -79,11 +226,9 @@
                     <a href="https://wa.me/56965065031?text=Hola%20me%20gustaría%20saber%20más%20sobre%20sus%20productos." target="_blank" class="btn btn-success">
                       <i class="fab fa-whatsapp"></i> Consulta por WhatsApp
                   </a>
-                  
                 </div>
             </div>
         </div>
-        
         {% endfor %}
     </div>
     <br>
@@ -93,5 +238,3 @@
 {% endif %}
 
 {% endblock %}
-
-

@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import inicio, registrarme, nosotros, productos,contacto
 from .views import usuarios, bodega, ventas, boleta, ingresar, usuarios
-from .views import misdatos, miscompras, salir, carrito, ficha
+from .views import misdatos, miscompras, salir, carrito, ficha,productos_por_categoria
+#categorias
 from .views import cambiar_estado_boleta, poblar, obtener_productos, eliminar_producto_en_bodega
 from .views import premio, eliminar_producto_en_carrito, agregar_producto_al_carrito
 from .views import vaciar_carrito, mipassword, cambiar_password, comprar_ahora
@@ -12,6 +13,8 @@ urlpatterns = [
     path('registrarme', registrarme, name='registrarme'),
     path('nosotros', nosotros, name='nosotros'),
     path('contacto', contacto, name='contacto'),
+     path('categoria/<int:categoria_id>/',productos_por_categoria, name='productos_por_categoria'),
+    #path('categorias', categorias, name='categorias'),
     path('productos/<str:accion>/<int:id>/', productos, name='productos'),
     path('usuarios/<accion>/<id>', usuarios, name='usuarios'),
     path('cambiar_password', cambiar_password, name='cambiar_password'),

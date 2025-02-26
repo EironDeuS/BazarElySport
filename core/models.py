@@ -6,17 +6,30 @@ from django.db.models import Min
 from django.db import connection
 
 class Categoria(models.Model):
-    nombre = models.CharField(max_length=100, blank=False, null=False, verbose_name='Nombre categoría')
-    
+    nombre = models.CharField(
+        max_length=100, 
+        blank=False, 
+        null=False, 
+        verbose_name='Nombre categoría'
+    )
+    imagen = models.ImageField(
+        upload_to='categorias/', 
+        blank=True, 
+        null=True, 
+        default='categorias/default.jpg',  # Imagen por defecto
+        verbose_name='Imagen de categoría'
+    )
+
     class Meta:
         db_table = 'Categoria'
         verbose_name = "Categoría de producto"
         verbose_name_plural = "Categorías de productos"
         ordering = ['nombre']
-    
+
     def __str__(self):
-        return f'{self.nombre}'
-    
+        return self.nombre
+
+
     def acciones():
         return {
             'accion_eliminar': 'eliminar la Categoría',

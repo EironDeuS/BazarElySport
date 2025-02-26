@@ -1,191 +1,189 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% load custom_filters %}
+
 {% block content %}
 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-
-    <style>
-        .product-image {
-    max-height: 400px;
-    object-fit:fill;
-    width: 100%;
-    border-radius: 8px;
-}
-.back-link {
-    text-decoration: none;
-    color: #ff8aa8;
-}
-.back-link:hover {
-    text-decoration: underline;
-}
-.btn-primary {
-    background-color: #ff8aa8;
-    border: none;
-}
-.btn-primary:hover {
-    background-color: #ffb3c6;
-}
-.btn-outline-secondary {
-    border-color: #ff8aa8;
-    color: #ff8aa8;
-}
-.btn-outline-secondary:hover {
-    background-color: #ff8aa8;
-    color: #fff;
-}
-.card {
-    margin-bottom: 20px;
-}
-.specifications {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.specifications h2 {
-    font-size: 1.75rem;
-    color: #333;
-}
-.specifications details {
-    margin-bottom: 15px;
-}
-.specifications summary {
-    font-size: 1.25rem;
-    cursor: pointer;
-    color: #ff8aa8;
-}
-.specifications summary:hover {
-    color: #ffb3c6;
-}
-.specifications p {
-    margin: 10px 0 0 20px;
-    font-size: 1rem;
-    color: #555;
-}
-.related-products {
-    margin-top: 40px;
-}
-.related-products .card {
-    transition: transform 0.3s;
-}
-.related-products .card:hover {
-    transform: scale(1.05);
-}
-
-
-@keyframes animation{
-    to{
-        translate: calc(-4*250px);
+    .product-container {
+        margin-top: 40px;
     }
-}
-    </style>
-    <!-- Contenedor principal -->
-    <div class="container mt-5">
-        <!-- Información del producto -->
-        <div class="row">
-            <!-- Imagen del producto -->
-            <div class="col-md-6">
-                <img src="/media/{{producto.imagen}}" alt="Imagen del producto" class="img-fluid product-image">
-            </div>
-        
-            <!-- Detalles del producto -->
-            <div class="col-md-6">
-                <h1>{{producto.nombre}}</h1>
-                <p class="text-muted">{{producto.id}}</p>
-                <p>
-                   {{producto.descripcion}}
-                </p>
-                <div class="mt-3">
-                    <a href="https://www.instagram.com/bazar.elysport/" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-instagram"></i> Visitar Instagram
-                    </a>
-                    <a href="https://wa.me/56965065031?text=Hola%20me%20gustaría%20saber%20más%20sobre%20sus%20productos." target="_blank" class="btn btn-success">
-                        <i class="fab fa-whatsapp"></i> Enviar mensaje por WhatsApp
-                    </a>
-                </div>
+
+    /* Ficha del producto */
+    .product-image {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .product-details {
+        padding: 20px;
+    }
+
+    .product-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+
+    .product-buttons {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-primary {
+      background-color: #ff758c;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: white;
+      transition: background 0.4s ease-in-out;
+  }
+
+  .btn-primary:hover {
+      background-color: #ff7eb3;
+  }
+
+  .btn-success {
+      background-color: #1c9c4b;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: white;
+      transition: background 0.4s ease-in-out;
+  }
+
+  .btn-success:hover {
+      background-color: #28a745;
+  }
+    /* Cuadrícula en desktop */
+    .desktop-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    /* Ocultar carrusel en desktop */
+    .mobile-carousel {
+        display: none;
+    }
+
+    /* Mostrar carrusel y ocultar cuadrícula en móviles */
+    @media (max-width: 768px) {
+        .desktop-grid {
+            display: none;
+        }
+        .mobile-carousel {
+            display: block;
+        }
+    }
+
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card img {
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .card-body {
+        text-align: center;
+    }
+
+    /* Carrusel */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #000;
+        border-radius: 50%;
+    }
+</style>
+
+<!-- Ficha del Producto -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- Imagen del producto -->
+        <div class="col-md-6">
+            <img src="/media/{{producto.imagen}}" alt="{{producto.nombre}}" class="img-fluid product-image">
+        </div>
+
+        <!-- Detalles del producto -->
+        <div class="col-md-6 product-details">
+            <h1 class="product-title">{{producto.nombre}}</h1>
+            <p class="text-muted">ID: {{producto.id}}</p>
+            <p>{{producto.descripcion}}</p>
+            <div class="product-buttons">
+                <a href="https://www.instagram.com/bazar.elysport/" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-instagram"></i> Consultanos por Instagram
+                </a>
+                <a href="https://wa.me/56965065031?text=Hola%20me%20gustaría%20saber%20más%20sobre%20{{producto.nombre}}." 
+                   target="_blank" class="btn btn-success">
+                    <i class="fab fa-whatsapp"></i> Consultanos por WhatsApp
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Carrusel de productos relacionados -->
-    <div class="container mt-5">
-        <h2>Productos Relacionados</h2>
-        <div id="relatedProductsCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                {% for producto in productos_relacionados %}
-                {% if forloop.counter0|divisibleby:3 %}
+<!-- Sección de Productos Relacionados -->
+<div class="container product-container">
+    <h2>Productos Relacionados</h2>
+
+    <!-- Cuadrícula en Desktop -->
+    <div class="desktop-grid">
+        {% for producto in productos_relacionados %}
+            <div class="card">
+                <img src="/media/{{producto.imagen}}" class="card-img-top" alt="{{producto.nombre}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{producto.nombre}}</h5>
+                    <p class="card-text">{{producto.descripcion}}</p>
+                    <a href="{% url 'ficha' producto.id %}" class="btn btn-primary">Ver más</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Carrusel en Móvil -->
+    <div id="relatedProductsCarousel" class="carousel slide mobile-carousel" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for producto in productos_relacionados %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <div class="row">
-                {% endif %}
-                        <div class="col-md-4">
-                            <div class="card mx-2">
-                                <img src="/media/{{producto.imagen}}" class="card-img-top" alt="{{producto.nombre}}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{producto.nombre}}</h5>
-                                    <p class="card-text">{{producto.descripcion}}</p>
-                                    <a href="{% url 'ficha' producto.id %}" class="btn btn-primary">Ver más</a>
-                                    
-                                </div>
-                            </div>
+                    <div class="card mx-3">
+                        <img src="/media/{{producto.imagen}}" class="card-img-top" alt="{{producto.nombre}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{producto.nombre}}</h5>
+                            <p class="card-text">{{producto.descripcion}}</p>
+                            <a href="{% url 'ficha' producto.id %}" class="btn btn-primary">Ver más</a>
+                            
                         </div>
-                {% if forloop.counter|divisibleby:3 or forloop.last %}
                     </div>
                 </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#relatedProductsCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#relatedProductsCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            {% endfor %}
         </div>
+        
+        <!-- Controles del carrusel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#relatedProductsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#relatedProductsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
     </div>
-
-    <!-- Estilos personalizados para el carrusel -->
-    <style>
-        .carousel-inner {
-            display: flex;
-            flex-wrap: nowrap;
-        }
-        .carousel-item {
-            flex: 0 0 auto;
-            transition: transform 0.5s ease;
-        }
-        .card {
-            width: 100%;
-        }
-        .card img {
-            height: 200px;
-            object-fit: cover;
-        }
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background-color: #000;
-            border-radius: 50%;
-        }
-    </style>
-
-    <!-- JavaScript para hacer el carrusel infinito -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var carousel = document.querySelector('#relatedProductsCarousel');
-            var items = carousel.querySelectorAll('.carousel-item');
-
-            carousel.addEventListener('slid.bs.carousel', function () {
-                var activeItem = carousel.querySelector('.carousel-item.active');
-                if (activeItem.nextElementSibling === null) {
-                    var firstItem = carousel.querySelector('.carousel-item:first-child');
-                    carousel.querySelector('.carousel-inner').appendChild(firstItem);
-                    firstItem.classList.remove('active');
-                    activeItem.classList.add('active');
-                }
-            });
-        });
-    </script>
+</div>
 
 {% endblock %}

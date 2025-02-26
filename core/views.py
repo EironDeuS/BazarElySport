@@ -8,7 +8,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.urls import reverse
 from django.utils.safestring import SafeString
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Producto, Boleta, Carrito, DetalleBoleta, Bodega, Perfil
+from .models import Producto, Boleta, Carrito, DetalleBoleta, Bodega, Perfil,Categoria
 from .forms import ProductoForm, BodegaForm, IngresarForm, UsuarioForm, PerfilForm
 from .forms import RegistroUsuarioForm, RegistroPerfilForm
 from .templatetags.custom_filters import formatear_dinero, formatear_numero, formatear_fecha, formatear_porcentaje
@@ -50,13 +50,33 @@ def inicio(request):
         registros = Producto.objects.all().order_by('nombre')
 
     # Cálculo de información del producto
-    productos = []
-    for registro in registros:
-        productos.append(obtener_info_producto(registro.id))
+    productos = [obtener_info_producto(registro.id) for registro in registros]
 
-    context = { 'productos': productos }
+    # Obtener todas las categorías
+    categorias = Categoria.objects.all()
+
+    context = { 
+        'productos': productos,
+        'categorias': categorias  # Agregar categorías al contexto
+    }
     
     return render(request, 'core/inicio.html', context)
+
+def productos_por_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+    registros = Producto.objects.filter(categoria=categoria).order_by('nombre')
+
+    # Cálculo de información del producto
+    productos = [obtener_info_producto(registro.id) for registro in registros]
+
+    context = { 
+        'productos': productos,
+        'categoria': categoria
+    }
+
+    return render(request, 'core/productos_por_categoria.html', context)
+
+
 
 def ficha(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
