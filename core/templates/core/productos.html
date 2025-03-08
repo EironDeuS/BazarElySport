@@ -1,15 +1,27 @@
-
 {% extends 'core/base.html' %}
 {% load static %}
 {% load custom_filters %}
 
 {% block content %}
-
+    <style>
+        @media (max-width: 767.98px) {
+            .producto-sm {
+                width: 50px !important;
+            }
+            .product-image {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+        .tabla-principal {
+            font-size: 14px; /* Ajusta el tamaño de la letra aquí */
+        }
+    </style>
     <!-- Contenedor principal -->
     <div class="container">
         <h2 class="text-center">Mantenedor de Productos</h2>
         <section>
-            <form id="form" method="POST" enctype="multipart/form-data" class="d-flex flex-wrap  justify-content-center">
+            <form id="form" method="POST" enctype="multipart/form-data" class="d-flex flex-wrap justify-content-center">
                 <div class="row" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px;">
                     <!-- Columna del formulario -->
                     <div class="col-md-6">
@@ -37,9 +49,9 @@
                                 <!-- Área de cuadro de imagen -->
                                 <div class="col-sm-12 text-center">
                                     {% if form.imagen.value %}
-                                    <img id="cuadro-imagen" class="product-image" src="/media/{{ form.imagen.value }}" class="img-fluid">
+                                    <img id="cuadro-imagen" class="product-image img-fluid" src="/media/{{ form.imagen.value }}">
                                     {% else %}
-                                    <img id="cuadro-imagen" class="product-image" src="{% static 'core/img/sin-imagen.png' %}" class="img-fluid">
+                                    <img id="cuadro-imagen" class="product-image img-fluid" src="{% static 'img/sin-imagen.png' %}">
                                     {% endif %}
                                     {{ form.imagen|as_bootstrap_field }}
                                 </div>
@@ -64,16 +76,16 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="table-responsive">
-                    <table id="tabla-principal" class="table table-hover">
+                    <table id="tabla-principal" class="table table-hover tabla-principal">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Categoría</th>
+                                <th class="d-none d-md-table-cell">ID</th>
+                                <th class="d-none d-md-table-cell">Categoría</th>
                                 <th>Nombre</th>
-                                <th>Descripción</th>
+                                <th class="d-none d-md-table-cell">Descripción</th>
                                 <th>Precio</th>
-                                <th>%Subs</th>
-                                <th>%Oferta</th>
+                                <th class="d-none d-md-table-cell">%Subs</th>
+                                <th class="d-none d-md-table-cell">%Oferta</th>
                                 <th>Imagen</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
@@ -82,15 +94,15 @@
                         <tbody>
                             {% for producto in productos %}
                             <tr>
-                                <td>{{ producto.id }}</td>
-                                <td>{{ producto.categoria }}</td>
+                                <td class="d-none d-md-table-cell">{{ producto.id }}</td>
+                                <td class="d-none d-md-table-cell">{{ producto.categoria }}</td>
                                 <td>{{ producto.nombre }}</td>
-                                <td>{{ producto.descripcion }}</td>
+                                <td class="d-none d-md-table-cell">{{ producto.descripcion }}</td>
                                 <td>{{ producto.precio|formatear_dinero }}</td>
-                                <td>{{ producto.descuento_subscriptor|formatear_porcentaje }}</td>
-                                <td>{{ producto.descuento_oferta|formatear_porcentaje }}</td>
+                                <td class="d-none d-md-table-cell">{{ producto.descuento_subscriptor|formatear_porcentaje }}</td>
+                                <td class="d-none d-md-table-cell">{{ producto.descuento_oferta|formatear_porcentaje }}</td>
                                 <td>
-                                    <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="" width="100px">
+                                    <img src="/media/{{ producto.imagen }}" class="producto-sm img-fluid" alt="" width="100px">
                                 </td>
                                 <td>
                                     <a href="{% url 'productos' 'actualizar' producto.id %}" class="btn btn-primary btn-sm">Editar</a>
