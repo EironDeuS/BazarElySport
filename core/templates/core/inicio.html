@@ -82,6 +82,14 @@
       color: #777;
       font-weight: 500;
   }
+  .btn-wsp {
+       width:100px ;
+ 
+       position: fixed;
+       bottom: 20px;
+       right: 20px;
+       z-index: 100;
+}
 
   .action-button {
       display: block;
@@ -124,7 +132,7 @@
   .card img {
       width: 100%;
       height: 200px;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 15px 15px 0 0;
       transition: transform 0.4s ease-in-out;
   }
@@ -140,6 +148,7 @@
   .card-title {
       font-size: 1.5rem;
       font-weight: bold;
+      letter-spacing: 3px;
       color: #333;
       margin-bottom: 10px;
   }
@@ -178,7 +187,7 @@
       background-color: #28a745;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 768px ) {
       .parent {
           grid-template-columns: repeat(2, 1fr);
           gap: 15px;
@@ -196,20 +205,48 @@
 
 <!-- Sección de Categorías -->
 
-<div class="parent">
-    {% for categoria in categorias %}
-    <a href="{% url 'productos_por_categoria' categoria.id %}" class="categoria-card">
-        {% if categoria.imagen and categoria.imagen.url %}
-            <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}">
-        {% else %}
-            <img src="{% static 'img/libro.jpg' %}" alt="Imagen por defecto">
-        {% endif %}
-        <div class="title">{{ categoria.nombre }}</div>
-    </a>
-    {% empty %}
-    <p>No hay categorías disponibles.</p>
-    {% endfor %}
+<div id="carouselCategorias" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        {% for categoria in categorias %}
+            {% if forloop.counter0|divisibleby:3 %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="parent">
+            {% endif %}
+                        <a href="{% url 'productos_por_categoria' categoria.id %}" class="categoria-card">
+                            {% if categoria.imagen and categoria.imagen.url %}
+                                <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}">
+                            {% else %}
+                                <img src="{% static 'img/libro.jpg' %}" alt="Imagen por defecto">
+                            {% endif %}
+                            <div class="title">{{ categoria.nombre }}</div>
+                        </a>
+            {% if forloop.counter|divisibleby:3 or forloop.last %}
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+        <p>No hay categorías disponibles.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Controles del carrusel -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCategorias" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselCategorias" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
 </div>
+
+<div>
+    <a href="https://wa.me/56965065031?text=Hola%20me%20gustaría%20saber%20más%20sobre%20sus%20productos."
+       target="_blank" class="btn btn-success btn-wsp">
+        <i class="fab fa-whatsapp"></i> 
+    </a>
+</div>
+
 
 <!-- Catálogo de Productos -->
 {% if productos %}

@@ -3,115 +3,137 @@
 {% load custom_filters %}
 
 {% block content %}
-
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
+    @font-face {
+        font-family: 'Pacifico';
+        src: url('fonts/Pacifico-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
     .product-container {
-        margin-top: 40px;
-    }
+    margin-top: 40px;
+}
 
-    /* Ficha del producto */
-    .product-image {
-        width: 100%;
-        max-height: 400px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
 
-    .product-details {
-        padding: 20px;
-    }
+/* Estilo de la imagen del producto */
+.product-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 10px;
+    
+    box-sizing: border-box;
+}
 
-    .product-title {
-        font-size: 1.8rem;
-        font-weight: 600;
-    }
+/* Estilo del título del producto */
+.product-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    letter-spacing: 2px
+}
 
-    .product-buttons {
-        margin-top: 15px;
-        display: flex;
-        gap: 10px;
-    }
+/* Botones de acción */
+.product-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
 
-    .btn-primary {
-      background-color: #ff758c;
-      border: none;
-      border-radius: 25px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      color: white;
-      transition: background 0.4s ease-in-out;
-  }
+.btn-primary {
+    background-color: #ff758c;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: white;
+    transition: background 0.4s ease-in-out;
+}
 
-  .btn-primary:hover {
-      background-color: #ff7eb3;
-  }
+.btn-primary:hover {
+    background-color: #ff7eb3;
+}
 
-  .btn-success {
-      background-color: #1c9c4b;
-      border: none;
-      border-radius: 25px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      color: white;
-      transition: background 0.4s ease-in-out;
-  }
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: white;
+    transition: background 0.4s ease-in-out;
+}
 
-  .btn-success:hover {
-      background-color: #28a745;
-  }
-    /* Cuadrícula en desktop */
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Cuadrícula en Desktop */
+.desktop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Ocultar carrusel en desktop */
+.mobile-carousel {
+    display: none;
+}
+
+/* Mostrar carrusel y ocultar cuadrícula en móviles */
+@media (max-width: 768px) {
     .desktop-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    /* Ocultar carrusel en desktop */
-    .mobile-carousel {
         display: none;
     }
-
-    /* Mostrar carrusel y ocultar cuadrícula en móviles */
-    @media (max-width: 768px) {
-        .desktop-grid {
-            display: none;
-        }
-        .mobile-carousel {
-            display: block;
-        }
+    .mobile-carousel {
+        display: block;
     }
+}
 
-    .card {
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease-in-out;
-    }
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 20px;
+}
 
-    .card:hover {
-        transform: scale(1.05);
-    }
+.card:hover {
+    transform: scale(1.05);
+}
 
-    .card img {
-        height: 200px;
-        object-fit: cover;
-        border-radius: 15px 15px 0 0;
-    }
+.card img {
+    height: 200px;
+    object-fit: contain;
+    border-radius: 15px 15px 0 0;
+}
 
-    .card-body {
-        text-align: center;
-    }
+.card-body {
+    text-align: center;
+}
+.text-descripcion{
+    text-align: justify;
+    text-shadow: #218838;
+}
+.card-title-1{
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #333;
+    margin-bottom: 10px;
+}
 
-    /* Carrusel */
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        background-color: #000;
-        border-radius: 50%;
-    }
+/* Carrusel */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #000;
+    border-radius: 50%;
+}
+
 </style>
-
 <!-- Ficha del Producto -->
 <div class="container mt-5">
     <div class="row">
@@ -121,22 +143,23 @@
         </div>
 
         <!-- Detalles del producto -->
-        <div class="col-md-6 product-details style=text-align: center;">
-            <h1 class="product-title">{{producto.nombre}}</h1>
+        <div class="col-md-6 product-details">
+            <h2 class="product-title">{{producto.nombre}}</h2>
             <p class="text-muted">ID: {{producto.id}}</p>
-            <p>{{producto.descripcion}}</p>
-            <div class="product-buttons style=text-align: center;">
-                <a href="https://www.instagram.com/bazar.elysport/" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-instagram"></i> Consultanos por Instagram
+            <p class="text-descripcion">{{producto.descripcion}}</p>
+            <div class="product-buttons">
+                <a href="https://www.instagram.com/direct/new/" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-instagram"></i> Consultanos por Instagram:
                 </a>
-                <a href="https://wa.me/56965065031?text=Hola%20me%20gustaría%20saber%20más%20sobre%20{{producto.nombre}}." 
-                   target="_blank" class="btn btn-success style=text-align: center;">
-                    <i class="fab fa-whatsapp"></i> Consultanos por WhatsApp
-                </a>
+                <a href="https://wa.me/56965065031?text=Hola%20me%20gustaría%20saber%20más%20sobre%20{{producto.nombre}}."
+                target="_blank" class="btn btn-success whatsapp-button">
+                <i class="fab fa-whatsapp"></i> Consultanos por WhatsApp
+             </a>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Sección de Productos Relacionados -->
 <div class="container product-container">
@@ -148,9 +171,13 @@
             <div class="card">
                 <img src="/media/{{producto.imagen}}" class="card-img-top" alt="{{producto.nombre}}">
                 <div class="card-body">
-                    <h5 class="card-title">{{producto.nombre}}</h5>
-                    <p class="card-text">{{producto.descripcion}}</p>
+                    <h5 class="card-title-1 ">{{producto.nombre}}</h5>
+                    <p class="card-text text-descripcion ">{{producto.descripcion}}</p>
                     <a href="{% url 'ficha' producto.id %}" class="btn btn-primary">Ver más</a>
+                    <a href="https://wa.me/56965065031?text=Hola%20me%20gustaría%20saber%20más%20sobre%20{{producto.nombre}}."
+                    target="_blank" class="btn btn-success whatsapp-button">
+                    <i class="fab fa-whatsapp"></i> Consultanos por WhatsApp
+                 </a>
                 </div>
             </div>
         {% endfor %}
@@ -167,7 +194,6 @@
                             <h5 class="card-title">{{producto.nombre}}</h5>
                             <p class="card-text">{{producto.descripcion}}</p>
                             <a href="{% url 'ficha' producto.id %}" class="btn btn-primary">Ver más</a>
-                            
                         </div>
                     </div>
                 </div>

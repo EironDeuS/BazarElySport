@@ -6,11 +6,13 @@
 
 
     <style>
-        body {
-            background-color: #ffb3c6;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
+
+        .inputs_ingresar{
+            width: 100%;
+            font-size: 16px;
+            border: none;
+            border-bottom: 3px solid #ffb3c6;
+            border-left: 3px solid #ffb3c6;
         }
         h1 {
             font-family: 'Pacifico', cursive; /* Aplicar la fuente Pacifico al h1 */
@@ -66,14 +68,14 @@
                         {% endif %}
                         <!-- Renderizar el formulario con clases de Bootstrap -->
                         <fieldset>
-                            <legend>Información de Usuario</legend>
+
                             <div class="mb-3">
                                 <label for="id_username" class="form-label">Nombre de Usuario</label>
-                                {{ form.username|add_class:"form-control" }}
+                               <input type="text" name="username" class="form-control inputs_ingresar" id="id_username" placeholder="Nombre de usuario" required>
                             </div>
                             <div class="mb-3">
                                 <label for="id_password" class="form-label">Contraseña</label>
-                                {{ form.password|add_class:"form-control" }}
+                               <input type="password" name="password" class="form-control inputs_ingresar" id="id_password" placeholder="Ingrese Contraseña" required>
                             </div>
                         </fieldset>
                         <div class="text-center mt-4">
